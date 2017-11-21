@@ -89,14 +89,14 @@ backprop <- function(input, target, input.to.hidden.weights, hidden.to.output.we
   
   # Step 2. Calculate the forward pass on the network. This gets us the activity of the
   # hidden and output layers for a particular set of inputs.
-  activations <- forward.pass(input)
+  activations <- forward.pass(input, input.to.hidden.weights, hidden.to.output.weights)
   output.activation <- activations$output
   hidden.activation <- activations$hidden
   
   # Step 3. Find the error on the output units. We can find the error just like we did 
   # with the delta rule. Just subtract the actual output from the desired output.
-  output.error <- desired.output - output.activation # replace NA with correct code.
-  # Not sure what the desired output should be - will change 'desired.output'
+  output.desired.activation <- ##
+  output.error <-  output.desired.activation - output.activation # replace NA with correct code.
   
   # Step 4. We need to multiply the error for a node (an element in the output.error vector)
   # by the derivative of the activation function for the node. The activation function is the
@@ -105,12 +105,12 @@ backprop <- function(input, target, input.to.hidden.weights, hidden.to.output.we
   # 1) Find the derivative (slope) for each output node at the level of activation of that node.
   # 2) Multiple this by the node's error to get the weighted error.
   output.slope <- sigmoid.activation(input) * (1 - sigmoid.activation(input))
-  output.weighted.error <- output.error * output.slope
+  output.weighted.error <- output.slope * output.error
   
   # Step 5. Find the change in the hidden to output weights by applying the delta rule, using the
   # weighted error instead of the error.
   for(o in 1:n.output){
-    delta.hidden.to.output.weights[,o] <- (learning.rate * output.weighted.error * output.activation)
+    delta.hidden.to.output.weights[,o] <- 
   }
   
   # Step 6. Now we need to "backpropogate" the error from the output nodes to the hidden nodes,
@@ -121,15 +121,15 @@ backprop <- function(input, target, input.to.hidden.weights, hidden.to.output.we
   # is strongly connected to an output node, then it contributed a lot to the error of that node. If
   # a hidden node has almost no connection (weight near 0), then it contributed very little to the
   # error of the node.
-  hidden.error <- hidden.activation * delta.hidden.to.output.weights
+  hidden.error <- NA
   
   # Step 7. Just like the output layer, we need to calculate the weighted error for the hidden nodes.
-  hidden.slope <- sigmoid.activation(input) * (1 - sigmoid.activation(input))
-  hidden.weighted.error <- hidden.error * hidden.slope
+  hidden.slope <- NA
+  hidden.weighted.error <- NA
   
   # Step 8. Apply the delta rule using the weighted errors.
   for(h in 1:n.hidden){
-    delta.input.to.hidden.weights[,h] <- (learning.rate * hidden.weighted.error * hidden.activation)
+    delta.input.to.hidden.weights[,h] <- NA
   }
   
   # Step 9. Change the actual weights by the delta amount.
@@ -153,7 +153,7 @@ test.pattern <- function(input, target, input.to.hidden.weights, hidden.to.outpu
 # FALSE. This function represents the best guess of the network. We will use it to interpret the
 # output of the network as an identification of the digit.
 classification.correct <- function(input, target, input.to.hidden.weights, hidden.to.output.weights){
-  return(ifelse(max(output.activation)==max(target), TRUE, FALSE))
+  return(NA)
 }
 
 # This function runs a single epoch, based on the epoch.train.size and epoch.test.size parameters
